@@ -1,0 +1,36 @@
+{
+    "name": "quillstack/middleware",
+    "description": "The middleware library based on PSR-15: HTTP Server Request Handlers.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "middleware",
+        "php",
+        "psr",
+        "psr-15",
+        "php7"
+    ],
+    "homepage": "http://quillstack.com/middleware",
+    "authors": [
+        {
+            "name": "Radek Ziemniewicz",
+            "email": "open-source@quillstack.com"
+        }
+    ],
+    "require": {
+        "php": "^7.4",
+        "psr/http-server-middleware": "^1.0",
+        "psr/http-server-handler": "^1.0",
+        "psr/container": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "QuillStack\\Middleware\\": "src/QuillStack/Middleware/",
+            "QuillStack\\Mocks\\": "tests/QuillStack/Mocks/"
+        }
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^5.1",
+        "phpunit/phpunit": "^9"
+    }
+}
