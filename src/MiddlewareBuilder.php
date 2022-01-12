@@ -2,36 +2,20 @@
 
 declare(strict_types=1);
 
-namespace QuillStack\Middleware;
+namespace Quillstack\Middleware;
 
 use Psr\Container\ContainerInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-final class MiddlewareBuilder
+class MiddlewareBuilder
 {
-    /**
-     * @var ContainerInterface|null
-     */
     public ?ContainerInterface $container;
 
-    /**
-     * @var array
-     */
-    private array $middlewareClasses;
-
-    /**
-     * @param array $middlewareClasses
-     */
-    public function __construct(array $middlewareClasses)
+    public function __construct(private array $middlewareClasses)
     {
-        $this->middlewareClasses = $middlewareClasses;
+        //
     }
 
-    /**
-     * @param RequestHandlerInterface $fallbackHandler
-     *
-     * @return RequestHandlerInterface
-     */
     public function build(RequestHandlerInterface $fallbackHandler): RequestHandlerInterface
     {
         $middlewareProvider = new MiddlewareProvider($fallbackHandler);
@@ -43,10 +27,6 @@ final class MiddlewareBuilder
         return $middlewareProvider;
     }
 
-    /**
-     * @param MiddlewareProvider $middlewareProvider
-     * @param string $middlewareClass
-     */
     private function add(MiddlewareProvider &$middlewareProvider, string $middlewareClass): void
     {
         $middlewareInstance = $this->container->get($middlewareClass);

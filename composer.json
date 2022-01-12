@@ -8,29 +8,29 @@
         "php",
         "psr",
         "psr-15",
-        "php7"
+        "php8"
     ],
-    "homepage": "http://quillstack.com/middleware",
+    "homepage": "https://quillstack.org/",
     "authors": [
         {
             "name": "Radek Ziemniewicz",
-            "email": "open-source@quillstack.com"
+            "email": "radek@quillstack.org"
         }
     ],
     "require": {
-        "php": "^7.4",
+        "php": "^8",
         "psr/http-server-middleware": "^1.0",
         "psr/http-server-handler": "^1.0",
-        "psr/container": "^1.0"
+        "psr/container": "^1.0",
+        "quillstack/router": "^0.0.1"
     },
     "autoload": {
         "psr-4": {
-            "QuillStack\\Middleware\\": "src/QuillStack/Middleware/",
-            "QuillStack\\Mocks\\": "tests/QuillStack/Mocks/"
+            "Quillstack\\Middleware\\": "src/",
+            "Quillstack\\Middleware\\Tests\\": "tests/"
         }
     },
     "require-dev": {
-        "symfony/var-dumper": "^5.1",
-        "phpunit/phpunit": "^9"
+        "quillstack/unit-tests": "^0.2.10"
     }
 }
