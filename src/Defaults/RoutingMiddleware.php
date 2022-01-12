@@ -2,25 +2,18 @@
 
 declare(strict_types=1);
 
-namespace QuillStack\Middleware\Defaults;
+namespace Quillstack\Middleware\Defaults;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use QuillStack\DI\Container;
-use QuillStack\Router\Dispatcher;
+use Quillstack\DI\Container;
+use Quillstack\Router\Dispatcher;
 
-final class RoutingMiddleware implements MiddlewareInterface
+class RoutingMiddleware implements MiddlewareInterface
 {
-    /**
-     * @var Container
-     */
     public Container $container;
-
-    /**
-     * @var Dispatcher
-     */
     public Dispatcher $dispatcher;
 
     /**

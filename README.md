@@ -1,4 +1,4 @@
-# QuillStack Middleware
+# Quillstack Middleware
 
 The middleware library based on PSR-15: HTTP Server Request Handlers.
 
@@ -7,18 +7,12 @@ The middleware library based on PSR-15: HTTP Server Request Handlers.
 Run tests using a command:
 
 ```
-phpdbg -qrr vendor/bin/phpunit
+phpdbg -qrr ./vendor/bin/unit-tests
 ```
 
-Check the tests coverage:
+### Docker
 
+```shell
+$ docker-compose up -d
+$ docker exec -w /var/www/html -it quillstack_middleware sh
 ```
-phpdbg -qrr vendor/bin/phpunit --coverage-html coverage tests
-```
-
-## Quill Stack
-
-If you want to know more about other solutions, visit the website: \
-https://quillstack.com/ 
-
-[![The Quill Stack](http://quillstack.com/quillstack.png)](https://quillstack.com/)
