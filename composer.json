@@ -32,7 +32,7 @@
         }
     },
     "require-dev": {
-        "quillstack/unit-tests": "^0.2.14"
+        "quillstack/unit-tests": "^0.2.15"
     },
     "extra": {
         "branch-alias": {
