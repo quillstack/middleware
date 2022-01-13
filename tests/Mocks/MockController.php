@@ -15,4 +15,3 @@ class MockController implements RequestHandlerInterface
         return new MockResponse();
     }
 }
-
