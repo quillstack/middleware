@@ -9,4 +9,6 @@ use Quillstack\Response\Response;
 class MockResponse extends Response
 {
     public array $requestHeaders = [];
+    public bool $first = false;
+    public bool $second = false;
 }

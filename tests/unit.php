@@ -13,4 +13,6 @@ $container->addToConfig([
 return [
     \Quillstack\Middleware\Tests\Unit\TestFallbackHandlerMiddlewareProvider::class,
     \Quillstack\Middleware\Tests\Unit\TestMiddlewareProvider::class,
+
+    \Quillstack\Middleware\Tests\Unit\TestMiddlewareBuilder::class,
 ];
