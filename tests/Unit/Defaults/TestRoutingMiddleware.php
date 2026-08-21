@@ -53,9 +53,7 @@ class TestRoutingMiddleware
 
         $routes($container->get(Router::class));
 
-        $middleware = new RoutingMiddleware();
-        $middleware->container = $container;
-        $middleware->dispatcher = $container->get(Dispatcher::class);
+        $middleware = new RoutingMiddleware($container, $container->get(Dispatcher::class));
 
         $request = $container->get(ServerRequestFromGlobalsFactory::class)->createServerRequest();
 

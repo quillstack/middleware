@@ -9,10 +9,13 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 class MiddlewareBuilder
 {
-    public ?ContainerInterface $container;
-
-    public function __construct(private array $middlewareClasses)
-    {
+    /**
+     * @param string[] $middlewareClasses
+     */
+    public function __construct(
+        private readonly array $middlewareClasses,
+        private readonly ContainerInterface $container
+    ) {
         //
     }
 
@@ -27,14 +30,10 @@ class MiddlewareBuilder
         return $middlewareProvider;
     }
 
-    private function add(MiddlewareProvider &$middlewareProvider, string $middlewareClass): void
+    private function add(MiddlewareProvider $middlewareProvider, string $middlewareClass): void
     {
-        $middlewareInstance = $this->container->get($middlewareClass);
-
-        if (isset($middlewareInstance->container)) {
-            $middlewareInstance->container = $this->container;
-        }
-
-        $middlewareProvider->add($middlewareInstance);
+        $middlewareProvider->add(
+            $this->container->get($middlewareClass)
+        );
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Quillstack\Middleware\Tests\Unit;
 
+use Quillstack\DI\Container;
 use Quillstack\HttpRequest\HttpRequest;
 use Quillstack\Middleware\MiddlewareBuilder;
 use Quillstack\Middleware\Tests\Mocks\Middlewares\FirstMiddleware;
@@ -19,13 +20,12 @@ class TestMiddlewareBuilder
 {
     private MiddlewareBuilder $middlewareBuilder;
 
-    public function __construct(private AssertBoolean $assertBoolean)
+    public function __construct(private AssertBoolean $assertBoolean, Container $container)
     {
         $this->middlewareBuilder = new MiddlewareBuilder([
             FirstMiddleware::class,
             SecondMiddleware::class,
-        ]);
-        $this->middlewareBuilder->container = container();
+        ], $container);
     }
 
     public function build()

@@ -8,14 +8,22 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Quillstack\DI\Container;
+use Psr\Container\ContainerInterface;
 use Quillstack\Router\Dispatcher;
 use Quillstack\Router\RouteInterface;
 
 class RoutingMiddleware implements MiddlewareInterface
 {
-    public Container $container;
-    public Dispatcher $dispatcher;
+    /**
+     * A route names its controller, so the container is what turns that name into an
+     * object. It is asked for one thing only, which is why the PSR-11 interface is enough.
+     */
+    public function __construct(
+        private readonly ContainerInterface $container,
+        private readonly Dispatcher $dispatcher
+    ) {
+        //
+    }
 
     /**
      * {@inheritDoc}
