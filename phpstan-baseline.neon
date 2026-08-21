@@ -1,0 +1,19 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Cannot access property \$request on mixed\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: src/Defaults/RoutingMiddleware.php
+
+		-
+			message: '#^Cannot call method handle\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/Defaults/RoutingMiddleware.php
+
+		-
+			message: '#^Parameter \#1 \$middleware of method Quillstack\\Middleware\\MiddlewareProvider\:\:add\(\) expects Psr\\Http\\Server\\MiddlewareInterface, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/MiddlewareBuilder.php

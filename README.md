@@ -1,6 +1,6 @@
 # Quillstack Middleware
 
-[![Build Status](https://app.travis-ci.com/quillstack/middleware.svg?branch=main)](https://app.travis-ci.com/quillstack/middleware)
+[![Tests](https://github.com/quillstack/middleware/actions/workflows/tests.yml/badge.svg)](https://github.com/quillstack/middleware/actions/workflows/tests.yml)
 [![Downloads](https://img.shields.io/packagist/dt/quillstack/middleware.svg)](https://packagist.org/packages/quillstack/middleware)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=quillstack_middleware&metric=coverage)](https://sonarcloud.io/summary/new_code?id=quillstack_middleware)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=quillstack_middleware&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=quillstack_middleware)
