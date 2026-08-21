@@ -11,9 +11,17 @@ use Psr\Http\Server\RequestHandlerInterface;
 use Psr\Container\ContainerInterface;
 use Quillstack\Router\Dispatcher;
 use Quillstack\Router\RouteInterface;
+use Quillstack\Router\Routes\MethodNotAllowedRoute;
 
 class RoutingMiddleware implements MiddlewareInterface
 {
+    /**
+     * The request attribute naming the methods a known path answers to, so whatever ends up
+     * answering can say `405` and name them. Prefixed, because route parameters become
+     * attributes too and an application names those.
+     */
+    public const ALLOWED_METHODS = 'quillstack.allowed-methods';
+
     /**
      * A route names its controller, so the container is what turns that name into an
      * object. It is asked for one thing only, which is why the PSR-11 interface is enough.
@@ -31,6 +39,12 @@ class RoutingMiddleware implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $route = $this->dispatcher->dispatch($request);
+
+        if ($route instanceof MethodNotAllowedRoute) {
+            return $handler->handle(
+                $request->withAttribute(self::ALLOWED_METHODS, $route->getAllowedMethods())
+            );
+        }
 
         if (!$route->isSuccess()) {
             return $handler->handle($request);
