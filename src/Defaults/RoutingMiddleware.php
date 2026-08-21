@@ -36,6 +36,7 @@ class RoutingMiddleware implements MiddlewareInterface
             return $handler->handle($request);
         }
 
+        /** @var RequestHandlerInterface $controller */
         $controller = $this->container->get(
             $route->getController()
         );

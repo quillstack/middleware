@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Quillstack\Middleware;
 
 use Psr\Container\ContainerInterface;
+use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
 class MiddlewareBuilder
@@ -32,8 +33,9 @@ class MiddlewareBuilder
 
     private function add(MiddlewareProvider $middlewareProvider, string $middlewareClass): void
     {
-        $middlewareProvider->add(
-            $this->container->get($middlewareClass)
-        );
+        /** @var MiddlewareInterface $middleware */
+        $middleware = $this->container->get($middlewareClass);
+
+        $middlewareProvider->add($middleware);
     }
 }
