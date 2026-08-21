@@ -26,7 +26,7 @@ class TestFallbackHandlerMiddlewareProvider
                 HttpRequest::METHOD_GET,
                 new Uri(),
                 '',
-                new MockHeaders(['test' => 3])
+                new MockHeaders(['test' => '3'])
             )
         );
 

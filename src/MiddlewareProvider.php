@@ -11,6 +11,9 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 class MiddlewareProvider implements RequestHandlerInterface
 {
+    /**
+     * @var MiddlewareInterface[]
+     */
     private array $middleware = [];
 
     public function __construct(private RequestHandlerInterface $fallbackHandler)
@@ -28,12 +31,6 @@ class MiddlewareProvider implements RequestHandlerInterface
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        if (count($this->middleware) === 0) {
-            return $this->fallbackHandler->handle($request);
-        }
-
-        $currentMiddleware = array_shift($this->middleware);
-
-        return $currentMiddleware->process($request, $this);
+        return (new MiddlewareStack($this->middleware, $this->fallbackHandler))->handle($request);
     }
 }

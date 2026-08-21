@@ -21,7 +21,7 @@ class TestMiddlewareProvider
 
     public function handle()
     {
-        $requestHeaders = ['test' => 3];
+        $requestHeaders = ['test' => '3'];
         $this->middlewareProvider->add(new MockMiddleware());
         $response = $this->middlewareProvider->handle(
             new MockRequest(
@@ -32,6 +32,7 @@ class TestMiddlewareProvider
             )
         );
 
-        $this->assertEqual->equal($requestHeaders, $response->requestHeaders);
+        // PSR-7 keeps a list of values per header.
+        $this->assertEqual->equal(['test' => ['3']], $response->requestHeaders);
     }
 }
