@@ -12,7 +12,6 @@ use Quillstack\Middleware\Tests\Mocks\Middlewares\SecondMiddleware;
 use Quillstack\Middleware\Tests\Mocks\MockController;
 use Quillstack\Middleware\Tests\Mocks\MockHeaders;
 use Quillstack\Middleware\Tests\Mocks\MockRequest;
-use Quillstack\UnitTests\AssertEqual;
 use Quillstack\UnitTests\Types\AssertBoolean;
 use Quillstack\Uri\Uri;
 
