@@ -92,7 +92,10 @@ FrankenPHP — and it is the sort of thing which works in testing and fails unde
 | `Defaults\RoutingMiddleware` | matches the request to a route and calls its controller |
 | `Defaults\JsonResponseMiddleware` | says the response is JSON |
 | `Defaults\TrimStringsMiddleware` | takes the whitespace off what was sent |
-| `Defaults\AuthorizationMiddleware` | a place for authorisation to go — it lets everything through as it stands |
+
+There is no authorisation middleware here any more. There was one, and it let everything
+through — a name saying authorisation is handled, over code handling nothing, is worse than
+nothing at all. [quillstack/auth](https://github.com/quillstack/auth) is the real thing.
 
 `RoutingMiddleware` puts every matched route parameter on the request as an attribute, so a
 controller reads them with `$request->getAttribute('id')`. Where the path is known and the
