@@ -22,8 +22,8 @@
         "psr/container": "^1.1 || ^2.0",
         "psr/http-server-handler": "^1.0",
         "psr/http-server-middleware": "^1.0",
-        "quillstack/response": "^0.7",
-        "quillstack/router": "^0.7"
+        "quillstack/response": "^0.8",
+        "quillstack/router": "^0.8"
     },
     "autoload": {
         "psr-4": {
