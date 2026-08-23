@@ -20,19 +20,32 @@ documentation: https://quillstack.org/middleware
 A request passes through a stack of middleware on its way in and the response comes back out
 through the same stack. Each one decides whether to carry on, and what to do with the answer.
 
-### Requirements
+## Why this exists
+
+A PSR-15 stack is a small idea: each layer gets the request and a handler for the rest of the
+stack, and decides whether to call it. There is nothing to be clever about, and the
+[benchmark](#benchmark) says so — three implementations of this, within thirteen per cent of
+each other.
+
+What differs is what happens the second time. A stack that keeps its position in a property is a
+stack that cannot answer two requests, and cannot let a middleware call the next handler twice —
+which is exactly what a retry or a cache layer does. **The position here lives in the handler
+passed down**, so the same stack answers any number of requests, in any order, and a layer may
+call onwards as often as it likes.
+
+## Requirements
 
 - PHP 8.1 or newer
 
-### Installation
+## Installation
 
 ```shell
 composer require quillstack/middleware
 ```
 
-### Usage
+## Usage
 
-#### Writing one
+### Writing one
 
 ```php
 use Psr\Http\Message\ResponseInterface;
@@ -56,7 +69,7 @@ Anything before `$handler->handle()` sees the request on its way in; anything af
 response on its way out. Not calling `handle()` at all answers without the rest of the stack
 ever running — which is how a rate limit refuses, and how a preflight is answered.
 
-#### Building the stack
+### Building the stack
 
 ```php
 use Quillstack\Middleware\MiddlewareBuilder;
@@ -102,7 +115,7 @@ controller reads them with `$request->getAttribute('id')`. Where the path is kno
 method is not, it hands the allowed methods along under
 `RoutingMiddleware::ALLOWED_METHODS`, which is what a `405` needs to name them.
 
-### Technical documentation
+## Technical documentation
 
 | Class | What it is |
 | --- | --- |
@@ -113,7 +126,32 @@ method is not, it hands the allowed methods along under
 `MiddlewareStack` and `MiddlewareProvider` implement `Psr\Http\Server\RequestHandlerInterface`,
 so either can be handed to anything expecting a PSR-15 handler.
 
-### Unit tests
+## Benchmark
+
+Measured with [quillstack/benchmark](https://github.com/quillstack/benchmark) on a stack of five
+layers, each adding a header, over a handler returning `200`. All three produce the same response
+with the same five headers. Runs are interleaved and unconcurrent, each figure is the median of
+five, and PHP is 8.5.7.
+
+| | Version |
+| --- | --- |
+| quillstack/middleware | v0.9.0 |
+| relay/relay | 2.1.2 |
+| laminas/laminas-stratigility | 3.14.1 |
+
+| | Per request | Relative |
+| --- | --- | --- |
+| **quillstack/middleware** | **3.49 µs** | — |
+| relay/relay | 3.64 µs | 1.04× |
+| laminas/laminas-stratigility | 3.96 µs | 1.13× |
+
+**This is a tie, and it should be.** Running a PSR-15 stack is a loop calling `process()` and
+passing a handler along; four per cent between the first two is noise, and thirteen to the third
+is not a reason to choose anything. Where the difference is measured in nanoseconds, pick on
+what the code does rather than what the stopwatch says — which for this one is the paragraph
+above about answering a second request.
+
+## Tests
 
 ```shell
 composer test
@@ -121,13 +159,16 @@ composer test:coverage
 composer stan
 ```
 
-### Docker
+## The rest of Quillstack
 
-```shell
-docker-compose up -d
-docker exec -w /var/www/html -it quillstack_middleware sh
-```
+This is one component of [Quillstack](https://github.com/quillstack), a PHP framework which is
+as simple to use as it is strict about what it does.
 
-### License
+- [quillstack/router](https://github.com/quillstack/router) — what the routing layer calls
+- [quillstack/auth](https://github.com/quillstack/auth) — a layer which refuses rather than answers
+- [quillstack/framework](https://github.com/quillstack/framework) — where the default stack is set
+- [quillstack/response](https://github.com/quillstack/response) — what comes back out
+
+## License
 
 MIT. See [LICENSE](LICENSE).
