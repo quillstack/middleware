@@ -16,7 +16,6 @@ return [
 
         \Quillstack\Middleware\Tests\Unit\TestMiddlewareBuilder::class,
 
-        \Quillstack\Middleware\Tests\Unit\Defaults\TestAuthorizationMiddleware::class,
         \Quillstack\Middleware\Tests\Unit\Defaults\TestJsonResponseMiddleware::class,
         \Quillstack\Middleware\Tests\Unit\Defaults\TestRoutingMiddleware::class,
     ],
