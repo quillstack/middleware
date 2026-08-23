@@ -10,7 +10,7 @@
         "psr-15",
         "php8"
     ],
-    "homepage": "https://quillstack.org/",
+    "homepage": "https://quillstack.org/packages/middleware",
     "authors": [
         {
             "name": "Radek Ziemniewicz",
